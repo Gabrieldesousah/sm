@@ -28,17 +28,18 @@
 	<div id="dg">
 		<div class="container">
 			<div class="row centered">
-                <div class="col-lg-4">
-                    <div class="box-option">
-                        <div class="box-top">
-                            <div class="box-header">
-                            	<span class="box-title">list_posts['content']</span>
-                            	<span class="box-info">descrição</span>
-                            </div>
-                        </div>
-                        <a href="search/material/key/" class="box-signup">Ver mais</a>
-                    </div>
-                </div>
+                @foreach($contents as $content)
+		        <div class="col-lg-4">
+		            <div class="box-option">
+		                <div class="box-top">
+		                    <div class="box-header">
+		                    	<span class="box-title">{{ $content->name }}</span>
+		                    </div>
+		                </div>
+		                <a href="{{ url('/contents') }}/{{ $content->name }}" class="box-signup">Ver mais</a>
+		            </div>
+		        </div>
+		        @endforeach
 			</div><!-- row -->
 		</div><!-- container -->
 	</div><!-- DG -->

@@ -16,7 +16,7 @@ class ContentsController extends Controller
      */
     public function index()
     {
-        $contents = Content::all();
+        $contents = Content::orderby('name')->get();
         return view('contents.index', ['contents' => $contents]);
     }
 
@@ -70,7 +70,6 @@ class ContentsController extends Controller
      */
     public function show($name)
     {
-        echo $name;
         //App\Flight::where('active', 1)
         $materials = DB::select('SELECT * FROM materials WHERE content = ?', [$name]);
 

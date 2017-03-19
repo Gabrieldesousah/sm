@@ -380,8 +380,9 @@ a:after {
 }
 
 .box-info {
-    font-size: 14px;
+    font-size: 11px;
     color: yellow;
+    word-break: break-word;
 }
 
 .box-option .box-signup {

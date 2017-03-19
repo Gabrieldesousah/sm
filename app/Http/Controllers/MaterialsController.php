@@ -46,7 +46,20 @@ class MaterialsController extends Controller
      */
     public function show(Material $material)
     {
-        //
+        $material =  Material::find($material);
+        return view('materials.show', ['material' => $material]);
+    }
+
+    public function show_file($material)
+    {
+        $material  =  Material::find($material);
+        $file_path = 'storage' . '/' .
+                     'materials' . '/' .
+                      $material->file;
+        return view('materials.file', [
+            'material' => $material, 
+            'file_path' => $file_path
+        ]);
     }
 
     /**

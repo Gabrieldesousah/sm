@@ -12,7 +12,7 @@
 */
 
 
-Route::get('/', 'HomeController@index');
+Route::get('/', 'WelcomeController@index');
 Route::get('/home', 'HomeController@index');
 
 Auth::routes();
@@ -29,3 +29,7 @@ Route::get('/contents/{name}', 'ContentsController@show');
 //Route::post('/contentsInMass', 'ContentsController@createInMass');
 
 //Materials
+Route::get('/material/{material}', 'MaterialsController@show');
+
+Route::get('/file/{material}', 'MaterialsController@show_file');
+Route::get('/file/{material}/{file}', 'MaterialsController@show_file');
