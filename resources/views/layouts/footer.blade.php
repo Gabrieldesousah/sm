@@ -27,6 +27,48 @@
 </div><!-- Footer -->
 
 
+
+
+<!-- MODAL FOR LOGIN -->
+<!-- Modal -->
+<div class="modal fade" id="ModalLogin" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">Entrar</h4>
+            </div>
+            <form action="#" method="post">
+                <div class="modal-body">
+                    <div class="row centered">
+                        <div class="col-lg-12">
+                            <a  href="#" class="btn btn-primary large">Entrar com Facebook</a>
+                        </div>
+                        <div class="col-lg-12">
+                            <input name="email" id="email" value="" placeholder="E-mail" class="form-control" type="email">
+                        </div>
+                        <div class="col-lg-12">
+                            <input name="password" id="pas" value="" placeholder="Senha" class="form-control" type="password">
+                        </div>
+                        <div class="col-lg-12">
+                            <input type="submit" class="btn btn-danger" value="enviar">
+                        </div>
+
+                        <br>
+                        
+                        <div class="col-lg-12">
+                            <a href="#">Não é cadastrado? Clique aqui</a>
+                        </div>
+                    </div>   
+                </div><!-- /.modal-content -->
+            </form>
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+</div>
+
+
+
+
 <script>
 	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
 	  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -41,8 +83,8 @@
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     
-    <script src="//code.jquery.com/jquery.js"></script>
-    <script src="{{ asset('js/bootstrap.min.js.js') }}"></script>
+    <script src="{{ asset('js/jquery.js') }}"></script>
+    <script src="{{ asset('js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('js/app.js') }}"></script>
     <script src="{{ asset('js/typer.js') }}"></script>
 </body>

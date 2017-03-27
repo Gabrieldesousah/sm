@@ -24,6 +24,12 @@
             <!-- Right Side Of Navbar -->
             <ul class="nav navbar-nav navbar-right">
                 <!-- Authentication Links -->
+                <li>
+                    <form action="{{ url('/search/key') }}" method="GET">
+                        <input type="text" name="key" class="form-control" placeholder="Pesquisar material">
+                    </form>
+                </li>
+                <li><a href="{{ url('/share') }}">Compartilhar</a></li>
                 @if (Auth::guest())
                     <li><a href="{{ route('login') }}">Login</a></li>
                     <li><a href="{{ route('register') }}">Register</a></li>

@@ -4,17 +4,26 @@ namespace App\Http\Controllers;
 
 use App\Material;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
-class MaterialsController extends Controller
+class SearchController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function key()
     {
-        //
+        $search = $_GET['key'];
+        $materials = DB::select("
+        SELECT * FROM materials WHERE
+            content LIKE '%$search%' OR
+            professor LIKE '%$search%' OR
+            description LIKE '%$search%' OR
+            college LIKE '$search'    
+        ");
+        return view('materials.search', ['search' => $search, 'materials' => $materials]);
     }
 
     /**
@@ -24,7 +33,7 @@ class MaterialsController extends Controller
      */
     public function create()
     {
-        return view('materials.share');
+        //
     }
 
     /**
@@ -35,33 +44,7 @@ class MaterialsController extends Controller
      */
     public function store(Request $request)
     {
-
-        $material = new Material($request->except(['file']));
-
-        if( isset($_FILES['file']) and $_FILES['file'] != ""){
-            $file = $_FILES['file'];
-
-
-            $file_explode = explode('.',$_FILES['file']['name']);
-            $file_name = $file_explode[0];
-            $extent = strtolower(end($file_explode));
-            
-            $material->file = $file_name.'-'.md5(time()).'.'.$extent;
-
-            if(move_uploaded_file(
-                $file['tmp_name'], 
-                $_SERVER['DOCUMENT_ROOT'] .
-                "\storage" .
-                "\materials" .
-                '/'.
-                basename($material->file)
-            )){
-                $material->save();
-            }
-        }
-        
-        return redirect('/materials/share')->with('status', 'Arquivo enviado com sucesso!');
-
+        //
     }
 
     /**
@@ -72,20 +55,7 @@ class MaterialsController extends Controller
      */
     public function show(Material $material)
     {
-        $material =  Material::find($material);
-        return view('materials.show', ['material' => $material]);
-    }
-
-    public function show_file($material)
-    {
-        $material  =  Material::find($material);
-        $file_path = 'storage' . '/' .
-                     'materials' . '/' .
-                      $material->file;
-        return view('materials.file', [
-            'material' => $material, 
-            'file_path' => $file_path
-        ]);
+        //
     }
 
     /**

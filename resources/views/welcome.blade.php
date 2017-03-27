@@ -13,8 +13,9 @@
         			    Sua plataforma colaborativa de <span class="typer" data-delay="100" data-words="provas, listas, resumos, resoluções, aulas" data-colors="white"></span><span class="cursor" data-owner="first-typer"></span><br> 
         			    <a style="text-decoration: none; color: #fff" href="{{ url('/share/material') }}">Contribua para um maior acervo.</a>
         			</h2>
-            		<form action="" method="GET">
-            			<input type="text" name="search" class="search-input" placeholder="Pesquisar por nome  do professor, conteúdo ou tópicos">
+            		<form action="{{ url('/search/key') }}" method="GET">
+            			<input type="text" name="key" class="search-input" placeholder="Pesquisar por nome  do professor, conteúdo ou tópicos">
+            			}
             		</form>
                     <br>
 				</div>

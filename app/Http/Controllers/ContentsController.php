@@ -16,7 +16,9 @@ class ContentsController extends Controller
      */
     public function index()
     {
+        $area = "exatas";
         $contents = Content::orderby('name')->get();
+        //$contents = Content::where("area = ".$area)->orderby('name')->get();
         return view('contents.index', ['contents' => $contents]);
     }
 
@@ -29,12 +31,11 @@ class ContentsController extends Controller
     {
         //
     }
-    
-    /*****************************************************
+    /********************************************************
     public function selectInMass()
     {
         $materials = DB::select('SELECT DISTINCT content FROM materials');
-        return view('materials.index', ["materials" => $materials]);
+        return view('contents.selectInMass', ["materials" => $materials]);
     }
     public function createInMass(Request $request)
     {
@@ -46,10 +47,10 @@ class ContentsController extends Controller
         for ($i=0;$i<count($contents);$i++)
         {
            //echo "<br> " . $i . ": " . $contents[$i];
-           DB::insert('INSERT INTO contents (name, created_at, updated_at) VALUES (?, ?, ?)', [$contents[$i], $datetime, $datetime]);
+           DB::insert('INSERT INTO contents (name, area, area_id, created_at, updated_at) VALUES (?, ?, ?)', [$contents[$i], $datetime, $datetime]);
         }
     }
-    *****************************************************/
+    ********************************************************/
 
     /**
      * Store a newly created resource in storage.
