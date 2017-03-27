@@ -27,6 +27,10 @@ Route::get('/contents/{name}', 'ContentsController@show');
 //Route::get('/selectInMass', 'ContentsController@selectInMass');
 //Route::post('/contentsInMass', 'ContentsController@createInMass');
 
+//Professors
+//Route::get('/selectInMass', 'ProfessorsController@selectInMass');
+//Route::post('/professorsInMass', 'ProfessorsController@createInMass');
+
 //Materials
 Route::get('/material/{material}', 'MaterialsController@show');
 Route::get('/materials/share', 'MaterialsController@create');

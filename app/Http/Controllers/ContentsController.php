@@ -31,10 +31,11 @@ class ContentsController extends Controller
     {
         //
     }
-    /********************************************************
+
+/***********************************************************
     public function selectInMass()
     {
-        $materials = DB::select('SELECT DISTINCT content FROM materials');
+        $materials = DB::select('SELECT DISTINCT content FROM materials ORDER BY `content` ASC');
         return view('contents.selectInMass', ["materials" => $materials]);
     }
     public function createInMass(Request $request)
@@ -46,11 +47,22 @@ class ContentsController extends Controller
    		
         for ($i=0;$i<count($contents);$i++)
         {
+
+        $var = $contents[$i];
+        $var = str_replace(" VII" , " 7", $var);
+        $var = str_replace(" VI"  , " 6", $var);
+        $var = str_replace(" V"   , " 5", $var);
+        $var = str_replace(" IV"  , " 4", $var);
+        $var = str_replace(" III" , " 3", $var);
+        $var = str_replace(" II"  , " 2", $var);
+        $var = str_replace(" I"   , " 1", $var);
+
+
            //echo "<br> " . $i . ": " . $contents[$i];
-           DB::insert('INSERT INTO contents (name, area, area_id, created_at, updated_at) VALUES (?, ?, ?)', [$contents[$i], $datetime, $datetime]);
+           DB::insert('INSERT INTO contents (name, created_at, updated_at) VALUES (?, ?, ?)', [$var, $datetime, $datetime]);
         }
     }
-    ********************************************************/
+**********************************************************
 
     /**
      * Store a newly created resource in storage.
@@ -71,8 +83,36 @@ class ContentsController extends Controller
      */
     public function show($name)
     {
+        $var[1] = $name;
+        $var[2] = str_replace(" 7" , " VII", $name);
+        $var[3] = str_replace(" 6" , " VI", $name);
+        $var[4] = str_replace(" 5" , " V", $name);
+        $var[5] = str_replace(" 4" , " IV", $name);
+        $var[6] = str_replace(" 3" , " III", $name);
+        $var[7] = str_replace(" 2" , " II", $name);
+        $var[8] = str_replace(" 1" , " I", $name);
+
         //App\Flight::where('active', 1)
-        $materials = DB::select('SELECT * FROM materials WHERE content = ?', [$name]);
+        $materials = DB::select('SELECT * FROM materials WHERE 
+            content = ? OR
+            content = ? OR
+            content = ? OR
+            content = ? OR
+            content = ? OR
+            content = ? OR
+            content = ? OR
+            content = ?
+            ', 
+            [
+            $var[1],
+            $var[2],
+            $var[3],
+            $var[4],
+            $var[5],
+            $var[6],
+            $var[7],
+            $var[8],
+            ]);
 
         return view('contents.show', ['materials' => $materials]);
     }

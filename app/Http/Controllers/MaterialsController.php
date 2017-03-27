@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Material;
+use App\Content;
+use App\Professor;
 use Illuminate\Http\Request;
 
 class MaterialsController extends Controller
@@ -24,7 +26,11 @@ class MaterialsController extends Controller
      */
     public function create()
     {
-        return view('materials.share');
+        $contents = Content::all();
+        $professors = Professor::all();
+        return view('materials.share', 
+            ['contents' => $contents,
+             'professors' => $professors]);
     }
 
     /**
@@ -37,6 +43,29 @@ class MaterialsController extends Controller
     {
 
         $material = new Material($request->except(['file']));
+
+        if( ! Content::find($request->content) ){
+            $content = new Content();
+            $content->name = $request->content;
+            $content->area = $request->area;
+            $content->save();
+        }
+        if( ! Professor::find($request->professpr) ){
+            $professor = new Professor();
+
+            $var = $request->professor;
+            $var = str_replace(" VII" , " 7", $var);
+            $var = str_replace(" VI"  , " 6", $var);
+            $var = str_replace(" V"   , " 5", $var);
+            $var = str_replace(" IV"  , " 4", $var);
+            $var = str_replace(" III" , " 3", $var);
+            $var = str_replace(" II"  , " 2", $var);
+            $var = str_replace(" I"   , " 1", $var);
+
+            $professor->name = $var;
+            $professor->area = $request->area;
+            $professor->save();
+        }
 
         if( isset($_FILES['file']) and $_FILES['file'] != ""){
             $file = $_FILES['file'];

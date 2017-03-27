@@ -29,7 +29,7 @@
                         <input type="text" name="key" class="form-control" placeholder="Pesquisar material">
                     </form>
                 </li>
-                <li><a href="{{ url('/share') }}">Compartilhar</a></li>
+                <li><a href="{{ url('/materials/share') }}">Compartilhar</a></li>
                 @if (Auth::guest())
                     <li><a href="{{ route('login') }}">Login</a></li>
                     <li><a href="{{ route('register') }}">Register</a></li>

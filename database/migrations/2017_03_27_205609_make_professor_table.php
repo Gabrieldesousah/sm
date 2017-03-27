@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateContentsTable extends Migration
+class MakeProfessorTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,13 @@ class CreateContentsTable extends Migration
      */
     public function up()
     {
-        Schema::create('contents', function(Blueprint $table){
+        Schema::create('professors', function(Blueprint $table)
+        {
             $table->increments('id');
-            $table->string('name', 150);
-            $table->string('area')->nullable();
-            $table->smallInteger('area_id')->nullable();
+            $table->string('name');
+            $table->string('college')->nullable();
+            $table->string('course')->nullable();
             $table->timestamps();
-            $table->charset = 'utf8';
-            $table->collation = 'utf8_unicode_ci';
         });
     }
 
@@ -31,6 +30,6 @@ class CreateContentsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('contents');
+        Schema::dropIfExists('professors');
     }
 }

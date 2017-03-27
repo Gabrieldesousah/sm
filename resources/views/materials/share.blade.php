@@ -34,11 +34,19 @@
 					</select>
 
 					<label for="professor">Professor(necessário): </label><br>
-					<input class="input-large form-control" name="professor" id="professor" value="" placeholder="Nome do professor" type="text" required>
+					<input name="professor" list="professor" class="input-large form-control" placeholder="Disciplina, ex: Cálculo I" required>
+					<datalist id="professor">
+						@foreach($professors as $professor)<option value="{{ $professor->name }}">@endforeach
+					</datalist>
 
+					<label for="content">Disciplina: </label>
+					<br>
+					<input name="content" list="content" class="input-large form-control" placeholder="Disciplina, ex: Cálculo I" required>
+					<datalist id="content">
+						@foreach($contents as  $content)<option value="{{ $content->name }}">@endforeach
+					</datalist>
 
-					<label for="content">Disciplina: </label><br>
-					<input class="input-large form-control" name="content" id="content" value="" placeholder="Disciplina, ex: Cálculo I" type="text" required>
+					
 
 					<label for="area">Área: </label><br>
 					<select class="input-large form-control" name="area">
