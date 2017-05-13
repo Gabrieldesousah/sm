@@ -7,37 +7,26 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 
-class RegisterController extends Controller
+class UpdateController extends Controller
 {
     /*
     |--------------------------------------------------------------------------
-    | Register Controller
+    | Update Controller
     |--------------------------------------------------------------------------
     |
-    | This controller handles the registration of new users as well as their
-    | validation and creation. By default this controller uses a trait to
+    | This controller handles the change of date for users as well as their
+    | validation. By default this controller uses a trait to
     | provide this functionality without requiring any additional code.
     |
     */
 
-    use RegistersUsers;
-
     /**
-     * Where to redirect users after registration.
+     * Where to redirect users after update.
      *
      * @var string
      */
-    protected $redirectTo = '/editprofile';
+    protected $redirectTo = '/dashboard';
 
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('guest');
-    }
 
     /**
      * Get a validator for an incoming registration request.
@@ -60,12 +49,22 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return User
      */
-    protected function create(array $data)
+
+    public function edit(User $user)
     {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => bcrypt($data['password']),
-        ]);
+    	$user_id = Auth::user()->id;
+
+        $user = User::find($user->id);
+        return view('users.edit')->with('user', $user);
+    }
+
+    protected function update(array $data)
+    {
+    	$user = User::find($request->id);
+        $user->email = $request->email;
+        $user->password = bcrypt($request->password);
+
+        $user->save();
+        return redirect('dashboard')->with('status_user', 'Comentário atualizado');
     }
 }

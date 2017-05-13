@@ -36,6 +36,61 @@ if($material->type == "exam")
         </div>
     </div>
 </div>
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <div class="panel panel-default">
+                <div class="panel-heading">Comentários</div>
+                <div class="panel-body">
+
+                    @if (session('status_comment'))
+                        <div class="alert alert-info">
+                            {{ session('status_comment') }}
+                        </div>
+                    @endif
+
+                    @foreach($comments as $c)
+                    <div class="col-lg-12 table-container">
+                        <table class="table table-stripped">
+                            <tr>
+                                <td class="col-lg-9">{{ $c->body }}</td>
+
+                                @if( $user->id === $c->user_id || $user->permissions == 1)
+                                <td class="col-lg-3 right">
+                                    <a href="{{ url('/comments/edit') }}/{{ $c->id }}">Editar</a>
+                                    <a href="{{ url('/comments/destroy') }}/{{ $c->id }}">Apagar</a>
+                                </td>
+                                @endif
+                            </tr>
+                        </table>
+                    </div>
+                    @endforeach
+                    <hr>
+
+                    <div class="col-lg-12">
+                        <form action="{{ url('/comments/store') }}" method="post" enctype="multipart/form-data">
+                            <label for="body">Comentar: </label><br>
+                            <textarea name="body" id="body" class="input-large form-control"></textarea>
+                            
+                            <input type="hidden" name="material_id" value="{{ $material->id }}">
+
+                            <input type="hidden" name="user_id" value="{{ $user->id }}">
+
+                            <br>
+                            {{ csrf_field() }}
+                            <div class="centered">
+                                <input class="btn btn-default" type="submit" value="Enviar">
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection
 
 

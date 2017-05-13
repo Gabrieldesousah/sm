@@ -10,6 +10,9 @@
 			    	<div class="table-container">
 			    		<table claass="table table-striped col-lg-12">
 			    		<tbody>
+			    		@if( $materials == null )
+			    		vazio
+			    		@endif
 					        @foreach($materials as $material)
 					        <?php
 					        if($material->type == "exam")

@@ -14,11 +14,16 @@
 
 Route::get('/', 'WelcomeController@index');
 Route::get('/home', 'HomeController@index');
+Route::get('/dashboard', 'DashboardController@index');
 
-Auth::routes();
 
 //Users
 Route::get('/users', 'UsersController@index');
+Route::get('/editprofile/{name?}', 'UsersController@edit');
+Route::get('/editpass/{name?}', 'UsersController@editpass');
+Route::post('/updateprofile/{name?}', 'UsersController@updateProfile');
+Route::post('/updateprofile/{name?}', 'UsersController@updatePass');
+Auth::routes();
 
 
 //Contents
@@ -36,8 +41,16 @@ Route::get('/material/{material}', 'MaterialsController@show');
 Route::get('/materials/share', 'MaterialsController@create');
 Route::post('/materials/store', 'MaterialsController@store');
 
+//Comments
+Route::post('/comments/store', 'CommentsController@store');
+Route::get('/comments/edit/{comment}', 'CommentsController@edit');
+Route::post('/comments/update', 'CommentsController@update');
+Route::get('/comments/destroy/{comment}', 'CommentsController@destroy');
+
+//Search
 Route::get('/search/key', 'SearchController@key');
 
+//File
 Route::get('/file/{material}', 'MaterialsController@show_file');
 Route::get('/file/{material}/{file}', 'MaterialsController@show_file');
 
