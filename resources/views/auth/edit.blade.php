@@ -48,7 +48,7 @@
                             <label for="college" class="col-md-4 control-label">Universidade</label>
 
                             <div class="col-md-6">
-                                <input id="college" type="text" class="form-control" name="name" value="{{ $user->college }}" required autofocus>
+                                <input id="college" type="text" class="form-control" name="college" value="{{ $user->college }}" required autofocus>
 
                                 @if ($errors->has('college'))
                                     <span class="help-block">
@@ -74,7 +74,7 @@
                             <label for="course" class="col-md-4 control-label">Curso</label>
 
                             <div class="col-md-6">
-                                <input id="course" type="text" class="form-control" name="name" value="{{ $user->course }}" required>
+                                <input id="course" type="text" class="form-control" name="course" value="{{ $user->course }}" required>
 
                                 @if ($errors->has('course'))
                                     <span class="help-block">
@@ -88,7 +88,7 @@
                             <label for="state" class="col-md-4 control-label">Estado (UF)</label>
 
                             <div class="col-md-6">
-                                <input id="state" type="text" class="form-control" name="name" value="{{ $user->state }}" placeholder="Ex: SP" required>
+                                <input id="state" type="text" class="form-control" name="state" value="{{ $user->state }}" placeholder="Ex: SP" required>
 
                                 @if ($errors->has('state'))
                                     <span class="help-block">
@@ -102,7 +102,7 @@
                             <label for="city" class="col-md-4 control-label">Cidade</label>
 
                             <div class="col-md-6">
-                                <input id="city" type="text" class="form-control" name="name" value="{{ $user->city }}" required>
+                                <input id="city" type="text" class="form-control" name="city" value="{{ $user->city }}" required>
 
                                 @if ($errors->has('city'))
                                     <span class="help-block">

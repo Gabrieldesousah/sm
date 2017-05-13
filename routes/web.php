@@ -22,7 +22,7 @@ Route::get('/users', 'UsersController@index');
 Route::get('/editprofile/{name?}', 'UsersController@edit');
 Route::get('/editpass/{name?}', 'UsersController@editpass');
 Route::post('/updateprofile/{name?}', 'UsersController@updateProfile');
-Route::post('/updateprofile/{name?}', 'UsersController@updatePass');
+Route::post('/updatepass/{name?}', 'UsersController@updatePass');
 Auth::routes();
 
 

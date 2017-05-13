@@ -85,9 +85,15 @@ class UsersController extends Controller
     public function updateProfile(Request $request, User $user)
     {
         $user = User::find(Auth::user()->id);
-        $user->email = $request->email;
-        
-        $user->password = bcrypt($request->password);
+
+        $user->name     = $request->name;
+        $user->email    = $request->email;
+        $user->college  = $request->college;
+        $user->area     = $request->area;
+        $user->course   = $request->course;
+        $user->state    = $request->state;
+        $user->city     = $request->city;
+        $user->country  = "Brazil";
 
         if( $user->save() ){
             return redirect('dashboard')->with('status_user', 'Dados atualizados');  
