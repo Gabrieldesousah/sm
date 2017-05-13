@@ -57,12 +57,18 @@ if($material->type == "exam")
                             <tr>
                                 <td class="col-lg-9">{{ $c->body }}</td>
 
+                              @if( Auth::guest() )
+
+                              @else
                                 @if( $user->id === $c->user_id || $user->permissions == 1)
                                 <td class="col-lg-3 right">
-                                    <a href="{{ url('/comments/edit') }}/{{ $c->id }}">Editar</a>
-                                    <a href="{{ url('/comments/destroy') }}/{{ $c->id }}">Apagar</a>
+                                    <a class="btn btn-warning" href="{{ url('/comments/edit') }}/{{ $c->id }}">
+                                    Editar</a>
+                                    <a class="btn btn-danger" href="{{ url('/comments/destroy') }}/{{ $c->id }}">
+                                    Apagar</a>
                                 </td>
                                 @endif
+                              @endif
                             </tr>
                         </table>
                     </div>
@@ -70,6 +76,7 @@ if($material->type == "exam")
                     <hr>
 
                     <div class="col-lg-12">
+                      @if( !Auth::guest() )
                         <form action="{{ url('/comments/store') }}" method="post" enctype="multipart/form-data">
                             <label for="body">Comentar: </label><br>
                             <textarea name="body" id="body" class="input-large form-control"></textarea>
@@ -84,6 +91,9 @@ if($material->type == "exam")
                                 <input class="btn btn-default" type="submit" value="Enviar">
                             </div>
                         </form>
+                      @else
+                        Faça login para comentar
+                      @endif
                     </div>
 
                 </div>

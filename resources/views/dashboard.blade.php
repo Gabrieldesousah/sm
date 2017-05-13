@@ -40,8 +40,23 @@
                 <div class="panel-body">
                   <ul>
                     @foreach($shared as $s)
+<?php
+if($s->type == "exam")
+{
+    $type = "Prova";
+}elseif($s->type == "list")
+{
+    $type = "Lista";
+}elseif($s->type == "resume")
+{
+    $type = "Resumo";
+}elseif($s->type == "answer")
+{
+    $type = "Gabarito";
+}
+?>
                       <li>
-                        <a href="{{ url('/material') }}/{{ $s->id }}">{{ $s->content }}</a>
+                        <a href="{{ url('/material') }}/{{ $s->id }}">{{ $type }} de {{ $s->content }}</a>
                       </li>
                     @endforeach
                   </ul>

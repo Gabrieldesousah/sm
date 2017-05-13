@@ -24,7 +24,7 @@ class MaterialsController extends Controller
     public function index()
     {
         //index
-        global $teste;
+        //teste
     }
 
     /**
@@ -36,9 +36,10 @@ class MaterialsController extends Controller
     {
         $contents = Content::all();
         $professors = Professor::all();
-        return view('materials.share', 
-            ['contents' => $contents,
-             'professors' => $professors]);
+        return view('materials.share', [
+            'contents' => $contents,
+            'professors' => $professors
+            ]);
     }
 
     /**
@@ -119,15 +120,7 @@ class MaterialsController extends Controller
      */
     public function show(Material $material)
     {
-
-        if(Auth::guest())
-        {
-            $user = null;
-        }
-        else
-        {
-            $user = Auth::user();
-        }
+        $user = Auth::user() ? Auth::user() : null;
 
         $material =  Material::find($material);
 
