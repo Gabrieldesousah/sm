@@ -36,6 +36,71 @@ if($material->type == "exam")
         </div>
     </div>
 </div>
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <div class="panel panel-default">
+                <div class="panel-heading">Comentários</div>
+                <div class="panel-body">
+
+                    @if (session('status_comment'))
+                        <div class="alert alert-info">
+                            {{ session('status_comment') }}
+                        </div>
+                    @endif
+
+                    @foreach($comments as $c)
+                    <div class="col-lg-12 table-container">
+                        <table class="table table-stripped">
+                            <tr>
+                                <td class="col-lg-9">{!! $c->body !!}</td>
+
+                              @if( Auth::guest() )
+
+                              @else
+                                @if( $user->id === $c->user_id || $user->permissions == 1)
+                                <td class="col-lg-3 right">
+                                    <a class="btn btn-warning" href="{{ url('/comments/edit') }}/{{ $c->id }}">
+                                    Editar</a>
+                                    <a class="btn btn-danger" href="{{ url('/comments/destroy') }}/{{ $c->id }}">
+                                    Apagar</a>
+                                </td>
+                                @endif
+                              @endif
+                            </tr>
+                        </table>
+                    </div>
+                    @endforeach
+                    <hr>
+
+                    <div class="col-lg-12">
+                      @if( !Auth::guest() )
+                        <form action="{{ url('/comments/store') }}" method="post" enctype="multipart/form-data">
+                            <label for="body">Comentar: </label><br>
+                            <textarea name="body" id="body" class="input-large form-control"></textarea>
+                            
+                            <input type="hidden" name="material_id" value="{{ $material->id }}">
+
+                            <input type="hidden" name="user_id" value="{{ $user->id }}">
+
+                            <br>
+                            {{ csrf_field() }}
+                            <div class="centered">
+                                <input class="btn btn-default" type="submit" value="Enviar">
+                            </div>
+                        </form>
+                      @else
+                        Faça login para comentar
+                      @endif
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection
 
 

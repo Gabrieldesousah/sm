@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use App\Material;
 use App\Content;
 use App\Professor;
+use App\Comment;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class MaterialsController extends Controller
 {
@@ -14,9 +17,14 @@ class MaterialsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+    {
+    }
+
     public function index()
     {
-        //
+        //index
+        //teste
     }
 
     /**
@@ -28,9 +36,10 @@ class MaterialsController extends Controller
     {
         $contents = Content::all();
         $professors = Professor::all();
-        return view('materials.share', 
-            ['contents' => $contents,
-             'professors' => $professors]);
+        return view('materials.share', [
+            'contents' => $contents,
+            'professors' => $professors
+            ]);
     }
 
     /**
@@ -44,38 +53,15 @@ class MaterialsController extends Controller
 
         $material = new Material($request->except(['file']));
 
-        if( ! Content::find($request->content) ){
-            $content = new Content();
-            $content->name = $request->content;
-            $content->area = $request->area;
-            $content->save();
-        }
-        if( ! Professor::find($request->professpr) ){
-            $professor = new Professor();
-
-            $var = $request->professor;
-            $var = str_replace(" VII" , " 7", $var);
-            $var = str_replace(" VI"  , " 6", $var);
-            $var = str_replace(" V"   , " 5", $var);
-            $var = str_replace(" IV"  , " 4", $var);
-            $var = str_replace(" III" , " 3", $var);
-            $var = str_replace(" II"  , " 2", $var);
-            $var = str_replace(" I"   , " 1", $var);
-
-            $professor->name = $var;
-            $professor->area = $request->area;
-            $professor->save();
-        }
-
-        if( isset($_FILES['file']) and $_FILES['file'] != ""){
+        if( isset($_FILES['file']) and $_FILES['file'] != "" )
+        {
             $file = $_FILES['file'];
-
 
             $file_explode = explode('.',$_FILES['file']['name']);
             $file_name = $file_explode[0];
             $extent = strtolower(end($file_explode));
             
-            $material->file = $file_name.'-'.md5(time()).'.'.$extent;
+            $material->file = $file_name.'-seumerito-'.md5(time()).'.'.$extent;
 
             if(move_uploaded_file(
                 $file['tmp_name'], 
@@ -84,13 +70,49 @@ class MaterialsController extends Controller
                 "\materials" .
                 '/'.
                 basename($material->file)
-            )){
-                $material->save();
-            }
-        }
-        
-        return redirect('/materials/share')->with('status', 'Arquivo enviado com sucesso!');
+            ))
+            {
 
+                if( Content::find($request->content) == null ){
+                    $content = new Content();
+
+                    $var = $request->content;
+                    $var = str_replace(" VII" , " 7", $var);
+                    $var = str_replace(" VI"  , " 6", $var);
+                    $var = str_replace(" V"   , " 5", $var);
+                    $var = str_replace(" IV"  , " 4", $var);
+                    $var = str_replace(" III" , " 3", $var);
+                    $var = str_replace(" II"  , " 2", $var);
+                    $var = str_replace(" I"   , " 1", $var);
+
+                    $content->name = $var;
+
+                    $content->area = $request->area;
+                    $content->save();
+                }
+                if( Professor::find($request->professor) == null){
+                    $professor = new Professor();
+
+                    $var = $request->professor;
+
+                    $professor->name = $var;
+                    $professor->area = $request->area;
+                    $professor->save();
+                }
+
+                if( $material->save() ){
+                    echo "material salvo";
+                    return redirect('/materials/share')->with('status', 'Arquivo enviado com sucesso!');
+                }
+
+            } else {
+                echo "Não moveu o arquivo";
+                return redirect('/materials/share')->with('status', 'Não moveu o arquivo');
+            }
+        } else {
+            echo "Não recebeu o arquivo";
+            return redirect('/materials/share')->with('status', 'Não recebeu o arquivo');
+        }
     }
 
     /**
@@ -101,8 +123,17 @@ class MaterialsController extends Controller
      */
     public function show(Material $material)
     {
+        $user = Auth::user() ? Auth::user() : null;
+
         $material =  Material::find($material);
-        return view('materials.show', ['material' => $material]);
+
+        $comments = DB::select('SELECT * FROM comments WHERE material_id = '.$material->id);
+
+        return view('materials.show', [
+            'material' => $material,
+            'comments' => $comments,
+            'user'     => $user
+            ]);
     }
 
     public function show_file($material)

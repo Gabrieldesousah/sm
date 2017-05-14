@@ -33,11 +33,6 @@
 						<option value="resume">Resumos e explicações</option>
 					</select>
 
-					<label for="professor">Professor(necessário): </label><br>
-					<input name="professor" list="professor" class="input-large form-control" placeholder="Disciplina, ex: Cálculo I" required>
-					<datalist id="professor">
-						@foreach($professors as $professor)<option value="{{ $professor->name }}">@endforeach
-					</datalist>
 
 					<label for="content">Disciplina: </label>
 					<br>
@@ -46,8 +41,14 @@
 						@foreach($contents as  $content)<option value="{{ $content->name }}">@endforeach
 					</datalist>
 
-					
 
+					<label for="professor">Professor: </label><br>
+					<input name="professor" list="professor" class="input-large form-control" placeholder="Nome do Professor">
+					<datalist id="professor">
+						@foreach($professors as $professor)<option value="{{ $professor->name }}">@endforeach
+					</datalist>
+
+					
 					<label for="area">Área: </label><br>
 					<select class="input-large form-control" name="area">
 						<option value="Exatas" selected="selected">Exatas</option>
@@ -57,7 +58,7 @@
 
 
 					<label for="text">Tópicos, curso e descrição: </label><br>
-					<input class="input-large form-control" type='text' name='description' placeholder="ex. 1° ou 2° prova; Produto vetorial, matrizes; eng. civil.."/>
+					<input class="input-large form-control" type='text' name='description' placeholder="ex. 1° prova - Produto vetorial e matrizes; eng. civil.."/>
 
 
 					<label for="college">O material é de qual universidade? </label><br>
@@ -76,7 +77,7 @@
 
 
 					<label for="file">Arquivo:</label><br>
-					<input class="input-large form-control" type="file" name="file">
+					<input class="input-large form-control" type="file" name="file" required>
 					
 					<?php 
 					if (Auth::guest()){
