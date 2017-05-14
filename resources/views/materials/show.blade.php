@@ -55,7 +55,7 @@ if($material->type == "exam")
                     <div class="col-lg-12 table-container">
                         <table class="table table-stripped">
                             <tr>
-                                <td class="col-lg-9">{{ $c->body }}</td>
+                                <td class="col-lg-9">{!! $c->body !!}</td>
 
                               @if( Auth::guest() )
 

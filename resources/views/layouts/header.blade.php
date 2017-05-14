@@ -39,9 +39,15 @@
     <!-- Styles -->
     <link href="{{ asset('css/bootstrap.css') }}" rel="stylesheet">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <script src="{{ asset('libs/ckeditor/ckeditor.js') }}"></script>
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css">
 
     <!-- Scripts -->
+    <script>
+    window.onload = function() {
+        CKEDITOR.replace( 'body' );
+    };
+</script>
     <script>
         window.Laravel = {!! json_encode([
             'csrfToken' => csrf_token(),
