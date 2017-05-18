@@ -23,8 +23,12 @@ if($material->type == "exam")
                 <div class="panel-heading">{{ $type }} de {{ $material->content }}</div>
                 <div class="panel-body">
                     <p>
-                    <b>Professor(a):</b> {{ $material->professor }}<br>
-                    <b>Instituição:</b> {{ $material->college }}<br>
+                    @if($material->professor != '')
+                        <b>Professor(a):</b> {{ $material->professor }}<br>
+                    @endif
+                    @if($material->college != '')
+                        <b>Instituição:</b> {{ $material->college }}<br>
+                    @endif
                     @if($material->description != '')
                         <b>Descrição:</b> {{ $material->description }}<br>
                     @endif
@@ -92,7 +96,9 @@ if($material->type == "exam")
                             </div>
                         </form>
                       @else
-                        Faça login para comentar
+                        <div class="centered">
+                            <a class="btn btn-default" href="{{ url('/login/materials/show/') }}/{{ $material->id }}">Faça login para comentar</a>
+                        </div>
                       @endif
                     </div>
 

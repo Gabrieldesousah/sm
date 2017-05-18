@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use App\Content;
 use App\Material;
+use App\Search;
 
 class ContentsController extends Controller
 {
@@ -83,6 +85,10 @@ class ContentsController extends Controller
      */
     public function show($name)
     {
+
+        
+
+
         $var[1] = $name;
         $var[2] = str_replace(" 7" , " VII", $name);
         $var[3] = str_replace(" 6" , " VI", $name);
@@ -113,7 +119,16 @@ class ContentsController extends Controller
             $var[7],
             $var[8],
             ]);
+        
+        if($name != "<--" and $name != "")
+        {
+            $user_id = Auth::user() ? Auth::user()->id : null;
 
+            $search = new Search();
+            $search->keywords = $name;
+            $search->user_id = $user_id;
+            $search->save();
+        }
         return view('contents.show', ['materials' => $materials]);
     }
 

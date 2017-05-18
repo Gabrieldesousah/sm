@@ -25,9 +25,24 @@
 
                 <div class="panel-body">
                   <ul>
-                    @foreach($historic as $h)
+                    @foreach($actions as $a)
+                    <?php
+                    if($a->material->type == "exam")
+                    {
+                        $type = "Prova";
+                    }elseif($a->material->type == "list")
+                    {
+                        $type = "Lista";
+                    }elseif($a->material->type == "resume")
+                    {
+                        $type = "Resumo";
+                    }elseif($a->material->type == "answer")
+                    {
+                        $type = "Gabarito";
+                    }
+                    ?>
                       <li>
-                        <a href="{{ url('/material') }}/{{ $h->file_id }}">{{ $h->file_id }}</a>
+                        <a href="{{ url('/material') }}/{{ $a->material_id }}">{{ $type }} de {{ $a->material->content }}</a>
                       </li>
                     @endforeach
                   </ul>
@@ -40,21 +55,21 @@
                 <div class="panel-body">
                   <ul>
                     @foreach($shared as $s)
-<?php
-if($s->type == "exam")
-{
-    $type = "Prova";
-}elseif($s->type == "list")
-{
-    $type = "Lista";
-}elseif($s->type == "resume")
-{
-    $type = "Resumo";
-}elseif($s->type == "answer")
-{
-    $type = "Gabarito";
-}
-?>
+                    <?php
+                    if($s->type == "exam")
+                    {
+                        $type = "Prova";
+                    }elseif($s->type == "list")
+                    {
+                        $type = "Lista";
+                    }elseif($s->type == "resume")
+                    {
+                        $type = "Resumo";
+                    }elseif($s->type == "answer")
+                    {
+                        $type = "Gabarito";
+                    }
+                    ?>
                       <li>
                         <a href="{{ url('/material') }}/{{ $s->id }}">{{ $type }} de {{ $s->content }}</a>
                       </li>

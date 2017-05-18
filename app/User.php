@@ -15,6 +15,14 @@ class User extends Authenticatable
      * @var array
      */
 
+    /**
+     * Get the Actions for the User
+     */
+    public function actions()
+    {
+        return $this->hasMany('App\Action');
+    }
+
     //tem q terminar de preencher aqui
     protected $fillable = [
         'name', 'email', 'password', 'area', 'course', 'college', 'state', 'city'

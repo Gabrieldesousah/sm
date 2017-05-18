@@ -25,7 +25,6 @@ Route::post('/updateprofile/{name?}', 'UsersController@updateProfile');
 Route::post('/updatepass/{name?}', 'UsersController@updatePass');
 Auth::routes();
 
-
 //Contents
 Route::get('/contents', 'ContentsController@index');
 Route::get('/contents/{name}', 'ContentsController@show');
@@ -68,4 +67,17 @@ Occasionally you may need to specify a route parameter, but make the presence of
     Route::get('user/{name?}', function ($name = 'John') {
         return $name;
     });
+*/
+
+/*Route::get('/login/{Redirect_Controller}/{Redirect_Action?}/{Redirect_Id?}', 
+	function($Redirect_Controller = null, 
+		$Redirect_Action = null, 
+		$Redirect_Id = null)
+	{
+		return view('auth.login', [
+			'Redirect_Controller' => $Redirect_Controller, 
+			'Redirect_Action' => $Redirect_Action, 
+			'Redirect_Id' => $Redirect_Id
+			]);
+	});
 */

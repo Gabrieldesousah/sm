@@ -1,4 +1,11 @@
 <nav class="navbar navbar-inverse navbar-fixed-top">
+  <!--div>
+    <div style="width:100%; background: #FFF; position: absolute; top:0;">
+      Essa é uma versão de teste e pode estar instável nos primeiros dias.
+    </div>
+    <br>
+  </div-->
+
     <div class="container">
         <div class="navbar-header">
             <!-- Collapsed Hamburger -->
