@@ -27,7 +27,6 @@ class DashboardController extends Controller
      */
     public function index()
     {
-
         //$actions = Action::orderby('id')->get();
 
         $user_id = Auth::user()->id;

@@ -96,9 +96,11 @@ if($material->type == "exam")
                             </div>
                         </form>
                       @else
+ 
                         <div class="centered">
                             <a class="btn btn-default" href="{{ url('/login/materials/show/') }}/{{ $material->id }}">Faça login para comentar</a>
                         </div>
+
                       @endif
                     </div>
 

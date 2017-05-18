@@ -15,6 +15,7 @@ class User extends Authenticatable
      * @var array
      */
 
+
     /**
      * Get the Actions for the User
      */

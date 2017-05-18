@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Material extends Model
 {
+ 
     public $fillable = ['user_id', 'type', 'professor', 
     'content', 'area', 'description', 'college', 'file'];
 
@@ -13,4 +14,5 @@ class Material extends Model
     {
     	$this->hasMany('App\Action');
     }
+   
 }

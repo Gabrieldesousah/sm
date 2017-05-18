@@ -25,6 +25,7 @@ Route::post('/updateprofile/{name?}', 'UsersController@updateProfile');
 Route::post('/updatepass/{name?}', 'UsersController@updatePass');
 Auth::routes();
 
+
 //Contents
 Route::get('/contents', 'ContentsController@index');
 Route::get('/contents/{name}', 'ContentsController@show');

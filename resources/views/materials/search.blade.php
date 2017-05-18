@@ -14,6 +14,7 @@
 			    		:/ Infelizmente não encontramos nada sobre "{{ $search }}".
 			    		<br>
 			    		Tente utilizar outros termos ou então <a href="{{ url('/materials/share')}}">compartilhe o que você tem</a>
+
 			    		@endif
 					        @foreach($materials as $material)
 					        <?php

@@ -6,6 +6,7 @@ use App\Material;
 use App\Content;
 use App\Professor;
 use App\Comment;
+use App\Action;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -138,6 +139,14 @@ class MaterialsController extends Controller
 
     public function show_file($material)
     {
+        $user_id = Auth::user() ? Auth::user()->id : null;
+
+        $action = new Action();
+        $action->user_id = $user_id;
+        $action->action = "view";
+        $action->material_id = $material;
+        $action->save();
+        
         $material  =  Material::find($material);
         $file_path = 'storage' . '/' .
                      'materials' . '/' .
