@@ -15,6 +15,18 @@ class SearchController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function index()
+    {
+        $keywords = DB::select("
+        SELECT keywords, Count(keywords) AS ContKeywords
+        FROM searches
+        GROUP BY keywords
+        ORDER BY ContKeywords DESC
+        LIMIT 150");
+
+        return view('materials.searches')->with('keywords', $keywords);
+    }
+
     public function key(Request $request)
     {
 

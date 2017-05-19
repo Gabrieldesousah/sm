@@ -50,6 +50,8 @@ Route::get('/comments/destroy/{comment}', 'CommentsController@destroy');
 //Search
 Route::get('/search/key', 'SearchController@key');
 
+Route::get('/searches', 'SearchController@index');
+
 //File
 Route::get('/file/{material}', 'MaterialsController@show_file');
 Route::get('/file/{material}/{file}', 'MaterialsController@show_file');
