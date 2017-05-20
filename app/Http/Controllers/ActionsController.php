@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Action;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
 class ActionsController extends Controller
@@ -14,7 +15,30 @@ class ActionsController extends Controller
      */
     public function index()
     {
-        //
+        $user_id = DB::select("
+        SELECT user_id, Count(user_id) AS ContUser_id
+        FROM actions
+        GROUP BY user_id
+        ORDER BY ContUser_id DESC
+        LIMIT 150
+        ");
+
+$i = 0;
+        foreach($user_id as $u)
+        {
+            if($u->user_id != ""){
+                $user = DB::select("SELECT * FROM users WHERE id = {$u->user_id}");
+                if(isset($user[0])){
+                    //echo $user[0]->name . ": " . $u->ContUser_id . "<br>";
+                    $userData[$i] = $user[0];
+                    $userData[$i]->contActions = $u->ContUser_id;
+
+                    $i++;
+                }
+            }
+        }
+        //die();
+        return view('users.actions', ['userData' => $userData]);
     }
 
     /**

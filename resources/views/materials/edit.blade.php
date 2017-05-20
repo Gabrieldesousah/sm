@@ -6,30 +6,11 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-                <div class="panel-heading">Compartilhar</div>
+                <div class="panel-heading">Editar</div>
                 <div class="panel-body">
 
-                @if (session('status_success'))
-			        <div class="alert alert-success">
-			            {{ session('status_success') }}
-			        </div>
-			    @elseif (session('status_danger'))
-			    	<div class="alert alert-danger">
-			            {{ session('status_danger') }}
-			        </div>
-			    @endif
-
-                @if (Auth::guest())
-                    <div class="alert alert-danger">
-                    Você não está cadastrado, faça login para gerenciar melhor seus documentos:
-				    <br>
-				    <a data-toggle="modal" data-target="#ModalLogin" href="#ModalLogin">Entrar</a></center>
-				    </div>
-                    
-                @endif
-
-                <form action="{{ url('/materials/store') }}" method="post" enctype="multipart/form-data">
-					<label for="type">O que você vai compartilhar? </label><br>
+                <form action="{{ url('/material/update') }}" method="post" enctype="multipart/form-data">
+					<label for="type">Tipo </label><br>
 					<select class="input-large form-control" name="type">
 						<option value="exam" selected="selected">Prova</option>
 						<option value="list">Lista de exercícios</option>
@@ -40,14 +21,16 @@
 
 					<label for="content">Disciplina: </label>
 					<br>
-					<input name="content" list="content" class="input-large form-control" placeholder="Disciplina, ex: Cálculo I" required>
+					<input name="content" list="content" class="input-large form-control" placeholder="Disciplina, ex: Cálculo I" 
+					value="{{$material->content}}" required>
 					<datalist id="content">
 						@foreach($contents as  $content)<option value="{{ $content->name }}">@endforeach
 					</datalist>
 
 
 					<label for="professor">Professor: </label><br>
-					<input name="professor" list="professor" class="input-large form-control" placeholder="Nome do Professor">
+					<input name="professor" list="professor" class="input-large form-control" 
+					value="{{$material->professor}}" placeholder="Nome do Professor">
 					<datalist id="professor">
 						@foreach($professors as $professor)<option value="{{ $professor->name }}">@endforeach
 					</datalist>
@@ -62,12 +45,15 @@
 
 
 					<label for="text">Tópicos, curso e descrição: </label><br>
-					<input class="input-large form-control" type='text' name='description' placeholder="ex. 1° prova - Produto vetorial e matrizes; eng. civil.."/>
+					<input class="input-large form-control" type='text' name='description' 
+					value="{{$material->description}}" placeholder="ex. 1° prova - Produto vetorial e matrizes; eng. civil.."/>
 
 
 					<label for="college">O material é de qual universidade? </label><br>
-					<select class="input-large form-control" name="college">
-						<option value="UFG" selected="selected">UFG</option>
+					<input name="college" list="college" class="input-large form-control" placeholder="ex: UFG, PUC" 
+					value="{{$material->college}}" required>
+					<datalist id="college">
+						<option value="UFG">UFG</option>
 						<option value="UEG">UEG</option>
 						<option value="IFG">IFG</option>
 						<option value="PUC">PUC</option>
@@ -77,30 +63,26 @@
 						<option value="ALFA">ALFA</option>
 						<option value="PADRÃO">PADRÃO</option>
 						<option value="Outras">Outras</option>
-					</select>
+					</datalist>
 
+					<input type="hidden" name="id" value="{{$material->id}}">
 
-					<label for="file">Arquivo:</label><br>
+					<!--label for="file">
+						Arquivo:
+						<h5>Não edite se não quiser alterar o arquivo</h5>
+					</label><br>
 					<input class="input-large form-control" type="file" name="file" required>
 					
-					<?php 
-					if (Auth::guest()){
-						$user_id = "";
-					} else {
-						$user_id = Auth::user()->id;
-					}
-					?>
-					<input type="hidden" name="user_id" value="{{ $user_id }}">
+					<input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
+
+					<br-->
 
 					<br>
 					{{ csrf_field() }}
 					<div class="centered">
-						<input class="btn btn-default" type="submit" value="Enviar">
+						<input class="btn btn-default" type="submit" value="Salvar">
 					</div>
 				</form>
-
-				<br><br>
-                <div class="alert alert-info">baixar camscanner</div>
 
                 </div>
             </div>

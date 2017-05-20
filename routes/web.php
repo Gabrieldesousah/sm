@@ -23,6 +23,8 @@ Route::get('/editprofile/{name?}', 'UsersController@edit');
 Route::get('/editpass/{name?}', 'UsersController@editpass');
 Route::post('/updateprofile/{name?}', 'UsersController@updateProfile');
 Route::post('/updatepass/{name?}', 'UsersController@updatePass');
+
+Route::get('/actions', 'ActionsController@index');
 Auth::routes();
 
 
@@ -40,6 +42,9 @@ Route::get('/contents/{name}', 'ContentsController@show');
 Route::get('/material/{material}', 'MaterialsController@show');
 Route::get('/materials/share', 'MaterialsController@create');
 Route::post('/materials/store', 'MaterialsController@store');
+Route::get('/material/edit/{material}', 'MaterialsController@edit');
+Route::post('/material/update', 'MaterialsController@update');
+Route::get('/material/destroy/{material}', 'MaterialsController@destroy');
 
 //Comments
 Route::post('/comments/store', 'CommentsController@store');

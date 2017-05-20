@@ -17,6 +17,15 @@
                   <a href="{{ url('editprofile')}}">Editar dados</a> 
                   |
                   <a href="{{ url('editpass')}}">Editar senha</a> 
+
+                  @if( Auth::user()->permissions == 1)
+                  <hr>
+                      <a href="{{ url('/searches') }}">
+                      Mais pesquisados</a>
+                      |
+                      <a href="{{ url('/actions') }}">
+                      Usuários mais ativos</a>
+                  @endif
                 </div>
             </div>
 

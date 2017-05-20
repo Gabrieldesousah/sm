@@ -19,10 +19,17 @@ if($material->type == "exam")
 <div class="container">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
+
+            @if (session('status'))
+                <div class="alert alert-success">
+                    {{ session('status') }}
+                </div>
+            @endif
             <div class="panel panel-default">
                 <div class="panel-heading">{{ $type }} de {{ $material->content }}</div>
                 <div class="panel-body">
                     <p>
+
                     @if($material->professor != '')
                         <b>Professor(a):</b> {{ $material->professor }}<br>
                     @endif
@@ -34,6 +41,19 @@ if($material->type == "exam")
                     @endif
                     <hr>
                     <a href="{{ url('/file') }}/{{ $material->id }}/{{ $material->file }}">Visualizar</a>
+
+                    @if( Auth::guest() )
+                    @else
+                    <?php #$user->id == $material->user_id ?>
+                        @if( $user->permissions == 1)
+                        <td class="col-lg-3 right">
+                            <a class="btn btn-warning" href="{{ url('/material/edit') }}/{{ $material->id }}">
+                            Editar</a>
+                            <a class="btn btn-danger" href="{{ url('/material/destroy') }}/{{ $material->id }}">
+                            Apagar</a>
+                        </td>
+                        @endif
+                      @endif
                     </p>
                 </div>
             </div>

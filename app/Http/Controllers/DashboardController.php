@@ -31,13 +31,13 @@ class DashboardController extends Controller
 
         $user_id = Auth::user()->id;
 
-        $actions = Action::where('user_id', $user_id)->get();
+        $actions = Action::where('user_id', $user_id)->orderBy("updated_at", "DESC")->get();
 
         //$historic = DB::select("SELECT * FROM actions where user_id = {$user_id} ORDER BY created_at DESC");
 
-        $shared = DB::select("SELECT * FROM materials where user_id = {$user_id} ORDER BY created_at DESC");
+        $shared = DB::select("SELECT * FROM materials where user_id = {$user_id} ORDER BY updated_at, created_at DESC LIMIT 20");
 
-        $commented = DB::select("SELECT * FROM comments where user_id = {$user_id} ORDER BY created_at DESC");
+        $commented = DB::select("SELECT * FROM comments where user_id = {$user_id} ORDER BY updated_at, created_at DESC LIMIT 20");
 
         return view('dashboard', [
             'actions' => $actions,

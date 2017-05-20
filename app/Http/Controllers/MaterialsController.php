@@ -35,6 +35,7 @@ class MaterialsController extends Controller
      */
     public function create()
     {
+        //Share
         $contents = Content::all();
         $professors = Professor::all();
         return view('materials.share', [
@@ -51,7 +52,9 @@ class MaterialsController extends Controller
      */
     public function store(Request $request)
     {
-
+        //if( $_FILES['file']['size'] >= 1028*10 )
+        //{ die(); }
+        
         $material = new Material($request->except(['file']));
 
         if( isset($_FILES['file']) and $_FILES['file'] != "" )
@@ -62,7 +65,10 @@ class MaterialsController extends Controller
             $file_name = $file_explode[0];
             $extent = strtolower(end($file_explode));
             
-            $material->file = $file_name.'-seumerito-'.md5(time()).'.'.$extent;
+            $material->file = $file_name
+                .'-seumerito-'
+                .md5(time())
+                .'.'.$extent;
 
             if(move_uploaded_file(
                 $file['tmp_name'], 
@@ -73,9 +79,10 @@ class MaterialsController extends Controller
                 basename($material->file)
             ))
             {
+                $c = Content::where('name', "{$request->content}")->get();
 
-                if( Content::find($request->content) == null ){
-                    $content = new Content();
+                if( count($c) === 0 ){
+                    $content = new Content();                    
 
                     $var = $request->content;
                     $var = str_replace(" VII" , " 7", $var);
@@ -91,7 +98,11 @@ class MaterialsController extends Controller
                     $content->area = $request->area;
                     $content->save();
                 }
-                if( Professor::find($request->professor) == null){
+
+
+                $p = Professor::where('name', "{$request->professor}")->get();
+
+                if( count($p) === 0 ){
                     $professor = new Professor();
 
                     $var = $request->professor;
@@ -103,16 +114,16 @@ class MaterialsController extends Controller
 
                 if( $material->save() ){
                     echo "material salvo";
-                    return redirect('/materials/share')->with('status', 'Arquivo enviado com sucesso!');
+                    return redirect('/materials/share')->with('status_success', 'Arquivo enviado com sucesso!');
                 }
 
             } else {
                 echo "Não moveu o arquivo";
-                return redirect('/materials/share')->with('status', 'Não moveu o arquivo');
+                return redirect('/materials/share')->with('status_danger', 'Não moveu o arquivo');
             }
         } else {
             echo "Não recebeu o arquivo";
-            return redirect('/materials/share')->with('status', 'Não recebeu o arquivo');
+            return redirect('/materials/share')->with('status_danger', 'Não recebeu o arquivo');
         }
     }
 
@@ -139,9 +150,15 @@ class MaterialsController extends Controller
 
     public function show_file($material)
     {
+        $this->middleware('auth');
+        if(!Auth::user())
+        {
+            return redirect('/login');
+        }
+
         $user_id = Auth::user() ? Auth::user()->id : null;
 
-        $action = new Action();
+        $action = Action::find($material);
         $action->user_id = $user_id;
         $action->action = "view";
         $action->material_id = $material;
@@ -165,7 +182,15 @@ class MaterialsController extends Controller
      */
     public function edit(Material $material)
     {
-        //
+        $material = Material::find($material);
+        $contents = Content::all();
+        $professors = Professor::all();
+
+        return view('materials.edit', [
+            'material' => $material,
+            'contents' => $contents,
+            'professors' => $professors
+        ]);
     }
 
     /**
@@ -177,7 +202,54 @@ class MaterialsController extends Controller
      */
     public function update(Request $request, Material $material)
     {
-        //
+        $material = Material::find($request->id);
+        $material->type        = $request->type;
+        $material->content     = $request->content;
+        $material->professor  = $request->professor;
+        $material->area        = $request->area;
+        $material->description = $request->description;
+        $material->college     = $request->college;
+
+        $c = Content::where('name', "{$request->content}")->get();
+
+                if( count($c) === 0 ){
+                    $content = new Content();                    
+
+                    $var = $request->content;
+                    $var = str_replace(" VII" , " 7", $var);
+                    $var = str_replace(" VI"  , " 6", $var);
+                    $var = str_replace(" V"   , " 5", $var);
+                    $var = str_replace(" IV"  , " 4", $var);
+                    $var = str_replace(" III" , " 3", $var);
+                    $var = str_replace(" II"  , " 2", $var);
+                    $var = str_replace(" I"   , " 1", $var);
+
+                    $content->name = $var;
+
+                    $content->area = $request->area;
+                    $content->save();
+                }
+
+
+                $p = Professor::where('name', "{$request->professor}")->get();
+
+                if( count($p) === 0 ){
+                    $professor = new Professor();
+
+                    $var = $request->professor;
+
+                    $professor->name = $var;
+                    $professor->area = $request->area;
+                    $professor->save();
+                }
+
+
+        if($material->save())
+        {
+            return redirect('/material/'.$request->id)->with('status', 'Arquivo editado');
+        }
+
+
     }
 
     /**
@@ -188,6 +260,8 @@ class MaterialsController extends Controller
      */
     public function destroy(Material $material)
     {
-        //
+        $material = Material::find($material);
+        $material->delete();
+        return redirect('/')->with('status_delete', 'Material apagado');;
     }
 }

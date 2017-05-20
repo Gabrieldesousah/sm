@@ -85,10 +85,6 @@ class ContentsController extends Controller
      */
     public function show($name)
     {
-
-        
-
-
         $var[1] = $name;
         $var[2] = str_replace(" 7" , " VII", $name);
         $var[3] = str_replace(" 6" , " VI", $name);
