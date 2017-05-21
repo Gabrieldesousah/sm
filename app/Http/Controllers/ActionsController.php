@@ -23,7 +23,12 @@ class ActionsController extends Controller
         LIMIT 150
         ");
 
-$i = 0;
+        $user_id = Action::select('user_id', DB::raw('COUNT(user_id) AS count'))
+            ->groupBy('user_id')
+            ->orderBy('count', 'desc')
+            ->paginate(30);
+
+        $i = 0;
         foreach($user_id as $u)
         {
             if($u->user_id != ""){
@@ -37,8 +42,8 @@ $i = 0;
                 }
             }
         }
-        //die();
-        return view('users.actions', ['userData' => $userData]);
+        //dd($userData);
+        return view('users.actions', ['userData' => $user_id]);
     }
 
     /**

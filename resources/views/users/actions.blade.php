@@ -9,16 +9,22 @@
                 <div class="panel-heading">Usuários mais ativos</div>
                 <div class="panel-body">
 
-                    @foreach($userData as $u)
                     <ul>
+                    @foreach($userData as $u)
+                        @if($u->user["name"] != "")
                     	<li>
                     		<b style="text-transform: capitalize;">
-                    			{{$u->name}}:
+                    			{{$u->user["name"]}}:
                     		</b>
-                    		{{$u->contActions}}
+                    		{{$u->count}}
                     	</li>
-                    </ul>
+                        @endif
             		@endforeach
+                    </ul>
+
+                    <div class="centered">
+                        {{ $userData->links() }}
+                    </div>
 
                 </div>
             </div>

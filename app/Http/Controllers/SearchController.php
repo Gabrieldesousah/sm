@@ -17,12 +17,11 @@ class SearchController extends Controller
      */
     public function index()
     {
-        $keywords = DB::select("
-        SELECT keywords, Count(keywords) AS ContKeywords
-        FROM searches
-        GROUP BY keywords
-        ORDER BY ContKeywords DESC
-        LIMIT 150");
+ 
+        $keywords = Search::select('keywords', DB::raw('COUNT(keywords) AS count'))
+            ->groupBy('keywords')
+            ->orderBy('count', 'desc')
+            ->paginate(30);
 
         return view('materials.searches')->with('keywords', $keywords);
     }

@@ -16,12 +16,15 @@
                     		<b style="text-transform: capitalize;">
                     			{{$keyword->keywords}}:
                     		</b>
-                    		{{$keyword->ContKeywords}}
+                    		{{$keyword->count}}
                     	</li>
                     </ul>
             		
             		@endforeach
 
+                    <div class="centered">
+                        {{ $keywords->links() }}
+                    </div>
                 </div>
             </div>
         </div>
