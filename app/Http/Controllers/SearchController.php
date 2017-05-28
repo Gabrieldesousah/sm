@@ -37,13 +37,24 @@ class SearchController extends Controller
         $search->save();
 
         $search = $_GET['key'];
-        $materials = DB::select("
+
+        $materials = DB::table('materials')
+            ->where("content", "like", "%$search%")
+            ->orWhere("professor", "like", "%$search%")
+            ->orWhere("description", "like", "%$search%")
+            ->orWhere("college", "like", "%$search%")
+            ->orWhere("id", "$search")
+            ->get();
+
+       /* $materials = DB::select("
         SELECT * FROM materials WHERE
             content LIKE '%$search%' OR
             professor LIKE '%$search%' OR
             description LIKE '%$search%' OR
             college LIKE '$search'    
         ");
+        */
+
         return view('materials.search', ['search' => $search, 'materials' => $materials]);
     }
 

@@ -6,7 +6,7 @@
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    Usuários
+                    Usuários encontrados para " {{ $search }}"
                 </div>
                 <div class="panel-body">
                     <div class="table-container">
@@ -25,9 +25,9 @@
                             </tr>
                             @endforeach
                         </table>
-                        <div class="centered">
-                            {{ $users->links() }}
-                        </div>
+
+                        <br><br>
+                        <a href="{{ url('/users') }}">Voltar a lista de usuários</a>
                     </div>
                 </div>
             </div>

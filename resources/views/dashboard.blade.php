@@ -25,6 +25,9 @@
                       |
                       <a href="{{ url('/actions') }}">
                       Usuários mais ativos</a>
+                      |
+                      <a href="{{ url('/users') }}">
+                      Lista de usuários</a>
                   @endif
                 </div>
             </div>

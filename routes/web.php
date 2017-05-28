@@ -19,10 +19,12 @@ Route::get('/dashboard', 'DashboardController@index');
 
 //Users
 Route::get('/users', 'UsersController@index');
-Route::get('/editprofile/{name?}', 'UsersController@edit');
-Route::get('/editpass/{name?}', 'UsersController@editpass');
-Route::post('/updateprofile/{name?}', 'UsersController@updateProfile');
-Route::post('/updatepass/{name?}', 'UsersController@updatePass');
+Route::get('/user/{id}', 'UsersController@show');
+Route::get('/users/search', 'UsersController@search');
+Route::get('/editprofile/{user?}', 'UsersController@edit');
+Route::get('/editpass/{user?}', 'UsersController@editpass');
+Route::post('/updateprofile/{user?}', 'UsersController@updateProfile');
+Route::post('/updatepass/{user?}', 'UsersController@updatePass');
 
 Route::get('/actions', 'ActionsController@index');
 Auth::routes();

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Record;
 use App\Action;
+use App\user;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -27,6 +28,12 @@ class DashboardController extends Controller
      */
     public function index()
     {
+
+        $user = User::find(Auth::user()->id);
+        $datetime = date("y-m-d H:i:s");
+        $user->active = true;
+        $user->last_login = $datetime;
+        $user->save();
         //$actions = Action::orderby('id')->get();
 
         $user_id = Auth::user()->id;

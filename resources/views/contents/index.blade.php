@@ -15,6 +15,11 @@
             </div>
         </div>
         @endforeach
+
+        <br>
+        <div class="centered">
+            {{ $contents->links() }}
+        </div>
     </div>
 </div>
 @endsection

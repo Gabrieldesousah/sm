@@ -55,9 +55,9 @@
 					
 					<label for="area">Área: </label><br>
 					<select class="input-large form-control" name="area">
-						<option value="Exatas" selected="selected">Exatas</option>
-						<option value="Humanas">Humanas</option>
-						<option value="Biologicas">Biológicas</option>
+						<option value="1">Biológicas</option>
+						<option value="2" selected="selected">Exatas</option>
+						<option value="3">Humanas</option>
 					</select>
 
 

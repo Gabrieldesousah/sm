@@ -95,7 +95,7 @@ class MaterialsController extends Controller
 
                     $content->name = $var;
 
-                    $content->area = $request->area;
+                    $content->area_id = $request->area;
                     $content->save();
                 }
 

@@ -7,7 +7,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Atualizar perfil</div>
                 <div class="panel-body">
-                    <form class="form-horizontal" role="form" method="POST" action="{{ url('/updateprofile') }}">
+                    <form class="form-horizontal" role="form" method="POST" action="{{ url('/updateprofile') }}/{{ $user->id }}">
                         {{ csrf_field() }}
 
                       <fieldset>
@@ -63,9 +63,9 @@
 
                             <div class="col-md-6">
                                 <select class="input-large form-control" name="area">
-                                    <option value="Exatas" selected="selected">Exatas</option>
-                                    <option value="Humanas">Humanas</option>
-                                    <option value="Biologicas">Biológicas</option>
+                                    <option value="1">Biológicas</option>
+                                    <option value="2" selected="selected">Exatas</option>
+                                    <option value="3">Humanas</option>
                                 </select>
                             </div>
                         </div>

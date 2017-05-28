@@ -18,9 +18,7 @@ class ContentsController extends Controller
      */
     public function index()
     {
-        $area = "exatas";
-        $contents = Content::orderby('name')->get();
-        //$contents = Content::where("area = ".$area)->orderby('name')->get();
+        $contents = Content::where('area_id', Auth::user()->area)->orderby('name')->paginate(36);
         return view('contents.index', ['contents' => $contents]);
     }
 

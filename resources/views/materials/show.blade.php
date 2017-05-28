@@ -97,7 +97,7 @@ if($material->type == "exam")
                         </table>
                     </div>
                     @endforeach
-                    <hr>
+                    
 
                     <div class="col-lg-12">
                       @if( !Auth::guest() )
