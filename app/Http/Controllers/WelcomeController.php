@@ -12,7 +12,7 @@ class WelcomeController extends Controller
     public function index()
     {
     	if(!Auth::guest()){
-	        $contents = Content::where('area_id', 1)->orderby('name')->paginate(21);
+	        $contents = Content::where('area_id', Auth::user()->area)->orderby('name')->paginate(21);
 	        //$contents = Content::where("area = ".$area)->orderby('name')->get();
 	        return view('contents.index', ['contents' => $contents]);
     	}
