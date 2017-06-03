@@ -19,6 +19,7 @@ class DashboardController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+
     }
 
     /**
@@ -28,12 +29,12 @@ class DashboardController extends Controller
      */
     public function index()
     {
-
         $user = User::find(Auth::user()->id);
         $datetime = date("y-m-d H:i:s");
         $user->active = true;
         $user->last_login = $datetime;
         $user->save();
+
         //$actions = Action::orderby('id')->get();
 
         $user_id = Auth::user()->id;

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Content;
 use App\Material;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -16,8 +17,13 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $contents = Content::orderby('name')->where('area = exatas')->get();
-        return view('contents.index', ['contents' => $contents]);
+        if(!Auth::guest()){
+            $contents = Content::where('area_id', Auth::user()->area)->orderby('name')->paginate(21);
+            //$contents = Content::where("area = ".$area)->orderby('name')->get();
+            return view('contents.index', ['contents' => $contents]);
+        }
+        $contents = Content::orderby('name')->get();
+        return view('welcome', ['contents' => $contents]);
     }
 
     /**

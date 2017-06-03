@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Material;
 use App\Content;
+use App\User;
 use App\Professor;
 use App\Comment;
 use App\Action;
@@ -134,7 +135,7 @@ class MaterialsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show(Material $material)
-    {
+    {        
         $user = Auth::user() ? Auth::user() : null;
 
         $material =  Material::find($material);

@@ -22,7 +22,8 @@ if($material->type == "exam")
             <div class="panel panel-default">
                 <div class="panel-heading">{{ $type }} de {{ $material->content }}</div>
                 <div class="panel-body">
-                    <iframe src="{{ url($file_path) }}" width="100%" height="600px">
+                <embed src="{{ url($file_path) }}" width="100%" height="600px"></embed>
+                    <!--iframe src="{{ url($file_path) }}" width="100%" height="600px"-->
                 </div>
             </div>
         </div>

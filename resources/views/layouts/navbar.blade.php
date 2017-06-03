@@ -38,7 +38,7 @@
                 </li>
                 <li><a href="{{ url('/materials/share') }}">Compartilhar</a></li>
                 @if (Auth::guest())
-                    <li><a href="{{ route('login') }}">Login</a></li>
+                    <li><a href="{{ url('/login') }}?url={{$_SERVER["PATH_INFO"]}}">Login</a></li>
                     <li><a href="{{ route('register') }}">Register</a></li>
                 @else
                     <li class="dropdown">

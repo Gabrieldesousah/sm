@@ -40,7 +40,7 @@ if($material->type == "exam")
                         <b>Descrição:</b> {{ $material->description }}<br>
                     @endif
                     <hr>
-                    <a href="{{ url('/file') }}/{{ $material->id }}/{{ $material->file }}">Visualizar</a>
+                    <a target="_blank" href="{{ url('/file') }}/{{ $material->id }}/{{ $material->file }}">Visualizar</a>
 
                     @if( Auth::guest() )
                     @else
